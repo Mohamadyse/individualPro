@@ -86,7 +86,9 @@ public class Task implements Comparable<Task>, Serializable {
         comparsion = this.title.compareTo(task.getTitle());
         return comparsion;
 
-        
     }
-
+    public String toString(){//printf for better output
+        return title+"-"+ getDueDate()+"-"+ project+"-"+ description ;
+    }
+    
 }

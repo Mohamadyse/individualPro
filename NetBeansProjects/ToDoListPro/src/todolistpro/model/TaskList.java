@@ -21,33 +21,44 @@ import java.util.List;
 public  class TaskList implements Serializable {
 
     private static List<Task> taskList;
-    private static Scanner reader;
+ //   private static Scanner reader;
    
     
     public TaskList() {
         taskList = new ArrayList<>();
-        reader= new Scanner(System.in);
+  //      reader= new Scanner(System.in);
     }
 
     
     public void addTask() throws ParseException   {
-    
-        
-            
+     Scanner reader=new Scanner(System.in);
         System.out.println("Write the title of the task");
-                String title= reader.nextLine();
-         System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");// do while
-                String dueDate = reader.nextLine();
-        System.out.println("Write the project of the task" );
-                String project= reader.nextLine();
+        String title = reader.nextLine();
+
+        System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");// do while
+        String dueDate = dateMatching();
+
+        System.out.println("Write the project of the task");
+        String project = reader.nextLine();
         System.out.println("Write the description of the task");
-                String description = reader.nextLine();
- 
-        taskList.add(new  Task( title, dueDate,  project,  description));
+        String description = reader.nextLine();
+
+        taskList.add(new Task(title, dueDate, project, description));
+    }
+    private String dateMatching(){
+        String pattern="\\d{2}.\\d{2}.\\d{4}";
+       Scanner reader=new Scanner(System.in);
+       do{
+        String dueDate = reader.nextLine();
+        if (dueDate.matches(pattern)) {
+           return dueDate;
+        }
+        else System.out.println("Please enter the date in form DD.MM.YYYY");
+       }while (true);
     }
     
-    
     private int getIndex() {
+        Scanner reader=new Scanner(System.in);
         int input = reader.nextInt();
         while ((input <= 0) || (input > taskList.size())) {
             System.out.println("no task with such a number");
@@ -72,8 +83,10 @@ public  class TaskList implements Serializable {
     }
     
     public void showList(){ 
+    if ((taskList == null) || (taskList.isEmpty())) System.out.println(" The list is still empty ");
      for (int i=0; i< taskList.size();i++)
-         System.out.println(i+1+"-"+ taskList.get(i));
+         System.out.println(i+1+"-.  "+ taskList.get(i));
+         System.out.println("********************************");
     }
     
     public int getSize() {
@@ -81,11 +94,17 @@ public  class TaskList implements Serializable {
         return taskList.size();
     }
 
-    // public void sortListByProject(){
+//     public void sortListByProject(){
     public TaskList sortListByDate() {
+        if ((taskList == null) || (taskList.isEmpty())) {
+            return new TaskList();
+        }
         Collections.sort(taskList);
-        return (TaskList) taskList;
+        return (TaskList)taskList;
     }
+    
+    
+    
     
     public int accountDoneTasks() {
         int counter = 0;

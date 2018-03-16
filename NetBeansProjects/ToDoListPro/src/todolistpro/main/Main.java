@@ -5,9 +5,14 @@
  */
 package todolistpro.main;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.text.ParseException;
+import todolistpro.integration.Dbhandler;
+import static todolistpro.integration.Dbhandler.fileName;
+import todolistpro.model.TaskList;
 
 
 import todolistpro.view.View;
@@ -32,10 +37,11 @@ public class Main {
 //     
 //     Dbhandler db = new Dbhandler();
 //    TaskList taskList= db.readFromFile(); 
-     View screen =new View();
-      
-// 
-//        TaskList newList ;
+        View screen =new View();
+        
+//        
+//        System.out.println(*s);
+//        
 //        
 //        
 //

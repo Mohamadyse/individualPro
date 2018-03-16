@@ -41,30 +41,38 @@ public Controller() throws IOException, FileNotFoundException, ClassNotFoundExce
     }
 
     welcome();
-    invokeChoice();
+    calling();
 }
 
-    public void invokeChoice() throws IOException, ParseException {
-        Choice aChoice;
-        do {
-            printAlternatives(1, 4);
-            aChoice = getChoice();
+    public void invokeChoice(Choice aChoice) throws IOException, ParseException {
+       
+       
+       
             switch (aChoice) {
                 case ADD:
-                    taskList.addTask();
+                   taskList.addTask();
                     break;
                 case SORT:
-                    taskList.sortListByDate().showList();
+                    taskList.showList();//sen ska sortera
                     break;
                 case EDIT:
                     nextChoice();
                     break;
                 case SAQ:
-                    db.saveToFile(taskList);
+                    db.saveToFile(this.taskList);
                     break;
             }
-
-        } while (aChoice == SAQ);
+    
+    }
+    
+    public void calling() throws IOException, ParseException {
+        Choice aChoice;
+        do {
+            printAlternatives(1, 4);
+            aChoice = getChoice();
+            invokeChoice(aChoice);
+        } while (!(aChoice ==Choice.SAQ));
+        System.out.println("bye bye...");
     }
                 
 
@@ -82,7 +90,7 @@ public Controller() throws IOException, FileNotFoundException, ClassNotFoundExce
                 taskList.removeTask();
                 break;
             case BACK:
-                invokeChoice();
+                calling();
                 break;
 
         }
