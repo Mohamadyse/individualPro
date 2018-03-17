@@ -5,6 +5,7 @@
  */
 package todolistpro.integration;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,10 +61,34 @@ public class Dbhandler {
     }
     
     public void saveToFile(TaskList taskListToSave) throws FileNotFoundException, IOException {
-      //  File newFile = new File(someFile);
-        ObjectOutputStream outs = new ObjectOutputStream(new FileOutputStream(fileName));
-        outs.writeObject(taskListToSave);
-        outs.close();
+            FileOutputStream fos = new FileOutputStream(fileName);
+            ObjectOutputStream outs = new ObjectOutputStream(fos);
+            outs.writeObject(taskListToSave);
+            outs.close();
+        
+        
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        ObjectOutputStream os = new ObjectOutputStream(out);
+//        os.writeObject(taskListToSave);
+//        out.toByteArray();//byte[]
+//        FileOutputStream fos = new FileOutputStream(fileName);
+//        ObjectOutputStream outs = new ObjectOutputStream(fos);
+//        outs.writeObject(out.toByteArray());
+//        outs.close();
+     
     }     
 
+    /*
+    public static byte[] serialize(Object obj) throws IOException {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    ObjectOutputStream os = new ObjectOutputStream(out);
+    os.writeObject(obj);
+    return out.toByteArray();
+    }
+    public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+    ByteArrayInputStream in = new ByteArrayInputStream(data);
+    ObjectInputStream is = new ObjectInputStream(in);
+    return is.readObject();
+}
+    */
 }

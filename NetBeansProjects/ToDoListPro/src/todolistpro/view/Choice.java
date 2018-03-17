@@ -10,7 +10,7 @@ package todolistpro.view;
  * @author mohamad
  */
 public enum Choice {
-  SORT(1,"Show Task List"),ADD(2, "Add New Task"),EDIT(3,"Edit Task"),SAQ(4,"Save and quit"),UPDATE(5 ,"Mark a task as done " ),MARK(6 , "Remove a task " ),REMOVE( 7," "  ),BACK(8 ," "  );
+  SORT(1," Show Task List"),ADD(2, " Add New Task"),EDIT(3," Edit Task"),SAQ(4," Save and quit"),UPDATE(5 ," Mark a task as done " ),MARK(6 , " Remove a task " ),REMOVE( 7," Remove a task "  ),BACK(8 ," Go back "  );
      private String s;
      private int i;
  

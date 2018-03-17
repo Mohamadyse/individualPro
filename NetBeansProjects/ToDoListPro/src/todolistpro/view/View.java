@@ -16,7 +16,7 @@ import todolistpro.controller.Controller;
 
 
 /**
- *
+ *in this class we should have Scanner and method getChoice.
  * @author mohamad
  */
 public class View {
