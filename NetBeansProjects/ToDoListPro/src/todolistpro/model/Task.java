@@ -5,7 +5,6 @@
  */
 package todolistpro.model;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.Scanner;
  *
  * @author mohamad
  */
-public class Task implements Comparable<Task>, Serializable {
+public class Task implements Comparable<Task>{
 
     private String title;
     public Date dueDate;
@@ -26,12 +25,11 @@ public class Task implements Comparable<Task>, Serializable {
 
     public Task(String title, String dueDate, String project, String description) throws ParseException {// add the description as param
         this.title = title;
-            this.isDone = false;
-        this.dueDate = new SimpleDateFormat("dd.MM.yyyy").parse(dueDate);
-        this.project = project;
-    
-        this.description = description;
+        this.isDone = false;
         setDueDate(dueDate);
+        this.project = project;
+        this.description = description;
+
     }
 
     public String replaceDescription() { //we can put the new desc as param

@@ -8,8 +8,6 @@ package todolistpro.view;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Scanner;
 import todolistpro.controller.Controller;
 
 
