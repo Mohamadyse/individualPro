@@ -31,12 +31,8 @@ public  class Controller {
 public Controller() throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
 
     Controller.db = new DBHandler();
-//       this.taskList=db.readFromFile();
-    this.taskList= new TaskList( db.readFromFile());
-//    this.taskList = db.readFromFile();
-//    if (this.taskList == null) { //null pointer
-//        this.taskList = new TaskList();
-//    }         
+    this.taskList= new TaskList( db.readFromFile() );
+   
     choices = new HashMap<>();
     for (Choice c : Choice.values()) {
         choices.put(c.getChoiceOrder(), c);
@@ -61,7 +57,7 @@ public Controller() throws IOException, FileNotFoundException, ClassNotFoundExce
                     nextChoice();
                     break;
                 case SAQ:
-                    db.save(taskList);
+                    db.save(taskList.getArray());
                     break;
             }
     

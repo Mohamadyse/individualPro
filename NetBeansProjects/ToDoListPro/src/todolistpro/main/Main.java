@@ -5,14 +5,9 @@
  */
 package todolistpro.main;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.text.ParseException;
-import todolistpro.integration.DBHandler;
-import static todolistpro.integration.DBHandler.fileName;
-import todolistpro.model.TaskList;
 
 
 import todolistpro.view.View;

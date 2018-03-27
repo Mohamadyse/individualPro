@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import todolistpro.model.Task;
-import todolistpro.model.TaskList;
 
 
 /**
@@ -38,10 +37,7 @@ public class DBHandler {
        theFile= new File(fileName);
         if (!theFile.exists()) {
            theFile.createNewFile();
-//            save(new TaskList());
       }
-  //    this.taskList = readFromFile();
-      
     }
       
 
@@ -88,15 +84,16 @@ public class DBHandler {
         return created;
       }
         
-    public void save(TaskList taskListToSave)  {
+    public void save(ArrayList<Task> taskListToSave)  {
         try{
         FileWriter fw=new FileWriter(fileName,false);
         BufferedWriter bw=new BufferedWriter(fw);
         PrintWriter pw= new PrintWriter(bw);
         
         pw.println("Title, Status, Date, Project, Description");
-        
-        for(Task i: taskListToSave.getArray()){//remove the get Array
+              for(Task i: taskListToSave){//remove the get Array
+ 
+//        for(Task i: taskListToSave.getArray()){//remove the get Array
             pw.println(i);
         }
         pw.flush();
