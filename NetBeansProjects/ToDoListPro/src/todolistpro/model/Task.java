@@ -26,9 +26,10 @@ public class Task implements Comparable<Task>, Serializable {
 
     public Task(String title, String dueDate, String project, String description) throws ParseException {// add the description as param
         this.title = title;
+            this.isDone = false;
         this.dueDate = new SimpleDateFormat("dd.MM.yyyy").parse(dueDate);
         this.project = project;
-        this.isDone = false;
+    
         this.description = description;
         setDueDate(dueDate);
     }
@@ -50,7 +51,9 @@ public class Task implements Comparable<Task>, Serializable {
     public void setProject(String project) {
         this.project = project;
     }
-
+    public void setIsDone(boolean isDone){
+        this.isDone=isDone;
+    }
     public void setAsDone() {
         this.isDone = true;
     }
@@ -58,7 +61,7 @@ public class Task implements Comparable<Task>, Serializable {
     public String getTitle() {
         return title;
     }
-
+    
     public String getDueDate() {
       return new SimpleDateFormat("dd.MM.yyyy").format(dueDate);
         
@@ -88,7 +91,9 @@ public class Task implements Comparable<Task>, Serializable {
 
     }
     public String toString(){//printf for better output
-        return title+"-"+ getDueDate()+"-"+ project+"-"+ description ;
+        String status;
+        status= isDone? "done":"undone";
+        return title+","+ status + ","+ getDueDate()+","+ project+","+ description ;
     }
     
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Scanner;
-import todolistpro.integration.Dbhandler;
+import todolistpro.integration.DBHandler;
 import todolistpro.model.TaskList;
 import todolistpro.view.Choice;
 import static todolistpro.view.Choice.SAQ;
@@ -22,19 +22,21 @@ import static todolistpro.view.Choice.SAQ;
  */
 public  class Controller {
 
-    private static  Dbhandler db;
+    private static  DBHandler db;
     private TaskList taskList;
     private final HashMap <Integer, Choice> choices;
   
   
-  
+
 public Controller() throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
 
-    Controller.db = new Dbhandler();
-    this.taskList = db.readFromFile();
-    if (this.taskList == null) { //null pointer
-        this.taskList = new TaskList();
-    }
+    Controller.db = new DBHandler();
+//       this.taskList=db.readFromFile();
+    this.taskList= new TaskList( db.readFromFile());
+//    this.taskList = db.readFromFile();
+//    if (this.taskList == null) { //null pointer
+//        this.taskList = new TaskList();
+//    }         
     choices = new HashMap<>();
     for (Choice c : Choice.values()) {
         choices.put(c.getChoiceOrder(), c);
@@ -59,7 +61,7 @@ public Controller() throws IOException, FileNotFoundException, ClassNotFoundExce
                     nextChoice();
                     break;
                 case SAQ:
-                    db.saveToFile(this.taskList);
+                    db.save(taskList);
                     break;
             }
     
@@ -96,7 +98,6 @@ public Controller() throws IOException, FileNotFoundException, ClassNotFoundExce
         }
  }
     
-
     public Choice getChoice() {
         int input;
         Scanner reader = new Scanner(System.in);

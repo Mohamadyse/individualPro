@@ -6,27 +6,30 @@
 package todolistpro.model;
 
 
-import java.io.Serializable;
+ 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Collections;
-import java.util.List;
 
 
 /**
  *
  * @author mohamad
  */
-public  class TaskList implements Serializable {
+public  class TaskList   {
 
-    private static List<Task> taskList;
+    private static ArrayList<Task> taskList;
  //   private static Scanner reader;
    
     
     public TaskList() {
         taskList = new ArrayList<>();
   //      reader= new Scanner(System.in);
+    }
+    
+     public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     
@@ -95,12 +98,12 @@ public  class TaskList implements Serializable {
     }
 
 //     public void sortListByProject(){
-    public TaskList sortListByDate() {
+    public ArrayList<Task> sortListByDate() {
         if ((taskList == null) || (taskList.isEmpty())) {
-            return new TaskList();
+            return new ArrayList<>();
         }
         Collections.sort(taskList);
-        return (TaskList)taskList;
+        return taskList;
     }
     
     
@@ -119,4 +122,11 @@ public  class TaskList implements Serializable {
 //    public int accountUndoneTasks(){
 //    return taskList.size()- accountDoneTasks();
 //    }
+    
+ public ArrayList<Task> getArray(){
+     return  taskList;
+ }   
+    
+    
+    
 }
