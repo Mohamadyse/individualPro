@@ -9,12 +9,8 @@ package todolistpro.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Scanner;
 import todolistpro.integration.DBHandler;
 import todolistpro.model.TaskList;
-import todolistpro.view.Choice;
-import static todolistpro.view.Choice.SAQ;
 
 /**
  *
@@ -24,94 +20,47 @@ public  class Controller {
 
     private static  DBHandler db;
     private TaskList taskList;
-    private final HashMap <Integer, Choice> choices;
-  
-  
+
+
 
 public Controller() throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
-
     Controller.db = new DBHandler();
     this.taskList= new TaskList( db.readFromFile() );
+    }
+
+
+public  void   add(String title,String dueDate,String project,String description) throws ParseException{
+   taskList.add(title, dueDate, project, description);
+}
    
-    choices = new HashMap<>();
-    for (Choice c : Choice.values()) {
-        choices.put(c.getChoiceOrder(), c);
-    }
-
-    welcome();
-    calling();
-    }
-
-    public void invokeChoice(Choice aChoice) throws IOException, ParseException {
-       
-       
-       
-            switch (aChoice) {
-                case ADD:
-                   taskList.addTask();
-                    break;
-                case SORT:
-                    taskList.showList();//sen ska sortera
-                    break;
-                case EDIT:
-                    nextChoice();
-                    break;
-                case SAQ:
-                    db.save(taskList.getArray());
-                    break;
-            }
+ public void show(){
+     taskList.showList();
+   }
+            
+ public void save(){
+    db.save(taskList.getArray());
+   }
+   
+   
+   
+ public void setAsDoneTask(int index){
+      taskList.setAsDoneTask(index);
+   }
+   
     
-    }
-    
-    public void calling() throws IOException, ParseException {
-        Choice aChoice;
-        do {
-            printAlternatives(1, 4);
-            aChoice = getChoice();
-            invokeChoice(aChoice);
-        } while (!(aChoice ==Choice.SAQ));
-        System.out.println("bye bye...");
-    }
-                
-
-    private void nextChoice() throws IOException, ParseException {
-        printAlternatives(5, 8);
-        Choice aChoice = getChoice();
-        switch (aChoice) {
-            case UPDATE:
-                taskList.showList();
-                break;
-            case MARK:
-                taskList.setAsDoneTask();
-                break;
-            case REMOVE:
-                taskList.removeTask();
-                break;
-            case BACK:
-                calling();
-                break;
-
-        }
- }
-    
-    public Choice getChoice() {
-        int input;
-        Scanner reader = new Scanner(System.in);
-
-        do {
-            input = reader.nextInt();
-        } while (!choices.containsKey(input));
-        return choices.get(input);
-    }
+ public void remove(int index){
+    taskList.removeTask( index);
+   }
  
-    
-     private void welcome() {
-        System.out.printf(">> Welcome to ToDoly. \n You have %d tasks are done and %d tasks todo!",taskList.accountDoneTasks(),taskList.getSize()-taskList.accountDoneTasks() );
-        System.out.println(">> Pick an option:");
-    }
-    private void printAlternatives(int min, int max){
-        for(int i=min; i<=max;i++ ){
-             System.out.println( choices.get(i));
-        }
-     }
+public int accountDoneTasks(){
+return taskList.accountDoneTasks();    
+}
+
+
+public int getListSize(){
+    return  taskList.getSize();
+}
+
+
+
 }

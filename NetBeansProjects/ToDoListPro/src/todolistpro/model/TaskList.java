@@ -33,32 +33,11 @@ public  class TaskList   {
     }
 
     
-    public void addTask() throws ParseException   {
-     Scanner reader=new Scanner(System.in);
-        System.out.println("Write the title of the task");
-        String title = reader.nextLine();
-
-        System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");// do while
-        String dueDate = dateMatching();
-
-        System.out.println("Write the project of the task");
-        String project = reader.nextLine();
-        System.out.println("Write the description of the task");
-        String description = reader.nextLine();
-
+    public void add(String title,String dueDate,String project,String description) throws ParseException  {
         taskList.add(new Task(title, dueDate, project, description));
     }
-    private String dateMatching(){
-        String pattern="\\d{2}.\\d{2}.\\d{4}";
-       Scanner reader=new Scanner(System.in);
-       do{
-        String dueDate = reader.nextLine();
-        if (dueDate.matches(pattern)) {
-           return dueDate;
-        }
-        else System.out.println("Please enter the date in form DD.MM.YYYY");
-       }while (true);
-    }
+    
+   
     
     private int getIndex() {
         Scanner reader=new Scanner(System.in);
@@ -70,19 +49,15 @@ public  class TaskList   {
         return input;
     }
     
-    public Task getTask(){
-          System.out.println("enter the number of the task");
-        int index = getIndex();
+
+    
+    public void removeTask(int index) {
         
-        return taskList.get(index-1);
+        taskList.remove(index);
     }
     
-    public void removeTask() {//makecondition if task not null
-        taskList.remove(getTask());
-    }
-    
-    public void setAsDoneTask() {
-        getTask().setAsDone();
+    public void setAsDoneTask(int index) {
+       taskList.get(index).setAsDone();
     }
     
     public void showList(){ 
