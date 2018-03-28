@@ -27,13 +27,13 @@ import todolistpro.model.Task;
  *
  * @author mohamad
  */
-public class DBHandler {
+public class Handler {
 
     public static String fileName = "toDoList.txt"; 
 //    private TaskList taskList;
     private File theFile;
     
-    public DBHandler() throws IOException   {
+    public Handler() throws IOException   {
        theFile= new File(fileName);
         if (!theFile.exists()) {
            theFile.createNewFile();
