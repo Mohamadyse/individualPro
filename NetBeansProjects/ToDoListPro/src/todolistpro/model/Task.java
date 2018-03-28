@@ -18,10 +18,10 @@ import java.util.Scanner;
 public class Task implements Comparable<Task>{
 
     private String title;
-    public Date dueDate;
+    private Date dueDate;
     private String project;
     private boolean isDone;
-    public String description;
+    private String description;
 
     public Task(String title, String dueDate, String project, String description) throws ParseException {// add the description as param
         this.title = title;
@@ -32,23 +32,22 @@ public class Task implements Comparable<Task>{
 
     }
 
-    public String replaceDescription() { //we can put the new desc as param
-        System.out.println("Type your task");
-        Scanner descriptions = new Scanner(System.in);
-        return this.description = descriptions.nextLine();
+    public void setDescription(String description) { //we can put the new desc as param
+        this.description = description;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setDueDate(String dueDate) throws ParseException {
+    private void setDueDate(String dueDate) throws ParseException {
         this.dueDate = new SimpleDateFormat("dd.MM.yyyy").parse(dueDate);
     }
 
     public void setProject(String project) {
         this.project = project;
     }
+    
     public void setIsDone(boolean isDone){
         this.isDone=isDone;
     }
@@ -61,8 +60,8 @@ public class Task implements Comparable<Task>{
     }
     
     public String getDueDate() {
-      return new SimpleDateFormat("dd.MM.yyyy").format(dueDate);
-        
+        return new SimpleDateFormat("dd.MM.yyyy").format(dueDate);
+
     }
 
     public String getProject() {
@@ -74,7 +73,7 @@ public class Task implements Comparable<Task>{
     }
     
     @Override
-    public int compareTo(Task task){
+    public int compareTo(Task task) {
         int comparsion;
         comparsion = this.dueDate.compareTo(task.dueDate);
         if (comparsion != 0) {
@@ -88,10 +87,10 @@ public class Task implements Comparable<Task>{
         return comparsion;
 
     }
-    public String toString(){//printf for better output
+    public String toString() {//printf for better output
         String status;
-        status= isDone? "done":"undone";
-        return title+","+ status + ","+ getDueDate()+","+ project+","+ description ;
+        status = isDone ? "done" : "undone";
+        return title + "," + status + "," + getDueDate() + "," + project + "," + description;
     }
     
 }
