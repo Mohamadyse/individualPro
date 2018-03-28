@@ -180,7 +180,7 @@ public class View {
         return proccesser.getListSize();
     }
     
-    public void showList(){ 
+    private void showList(){ 
     if ((size()==0)) System.out.println(" The list is still empty ");
      for (int i=0; i< size();i++)
          System.out.println(i+1+".  "+ proccesser.showTask(i));
