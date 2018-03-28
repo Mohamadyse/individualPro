@@ -23,7 +23,7 @@ public class TaskListTest {
     static String dueDate;
     static String project;
     static String description;
-    static TaskList instance;
+    static TaskList taskList;
     
     public TaskListTest() {
     }
@@ -44,7 +44,7 @@ public class TaskListTest {
         dueDate = "11.11.1111";
         project = "bla";
         description = "bla";
-        instance = new TaskList();
+        taskList = new TaskList();
         
     }
     
@@ -60,9 +60,9 @@ public class TaskListTest {
         System.out.println("add");
         TaskList expected = new TaskList();
         Task task=new Task(title, dueDate, project, description);
-        instance.add(title, dueDate, project, description);
+        taskList.add(title, dueDate, project, description);
         expected.getArrayList().add(task);
-        assertArrayEquals(expected.getArrayList().toArray(), instance.getArrayList().toArray());
+        assertEquals(expected.getArrayList() , taskList.getArrayList() );
     }
     
     
@@ -73,11 +73,11 @@ public class TaskListTest {
     public void testRemoveTask() throws ParseException {
         System.out.println("removeTask");
         Task task=new Task(title, dueDate, project, description);
-        instance.add(title, dueDate, project, description);
+        taskList.add(title, dueDate, project, description);
             int index = 0;
-        instance.removeTask(index);
+        taskList.removeTask(index);
         TaskList expected = new TaskList();
-        assertArrayEquals(expected.getArrayList().toArray(), instance.getArrayList().toArray());
+        assertEquals(expected.getArrayList(), taskList.getArrayList());
     }
 
     /**
@@ -86,10 +86,10 @@ public class TaskListTest {
     @Test
     public void testSetAsDoneTask() throws ParseException {
         System.out.println("setAsDoneTask");
-        instance.add(title, dueDate, project, description);
+        taskList.add(title, dueDate, project, description);
         Task task = new Task(title, dueDate, project, description);
-        instance.setAsDoneTask(0);
-        boolean status = instance.getArrayList().get(0).isDone();
+        taskList.setAsDoneTask(0);
+        boolean status = taskList.getArrayList().get(0).isDone();
         assertTrue(status);
     }
     /**
@@ -98,9 +98,9 @@ public class TaskListTest {
     @Test
     public void testShowTask() throws ParseException {
         System.out.println("showTask");
-        instance.add(title, dueDate, project, description);
+        taskList.add(title, dueDate, project, description);
         String expResult = title + "," + "undone" + "," + "11.11.1111" + "," + project + "," + description;
-        String result = instance.showTask(0);
+        String result = taskList.showTask(0);
         assertEquals(expResult, result);
     }
     /**
@@ -110,21 +110,52 @@ public class TaskListTest {
     public void testGetSize() {
         System.out.println("getSize");
         int expResult = 0;
-        int result = instance.getSize();
+        int result = taskList.getSize();
         assertEquals(expResult, result);
     }
 
     public void testGetSizeWihtOneTask() throws ParseException {
         System.out.println("getSize");
-        instance.add(title, dueDate, project, description);
+        taskList.add(title, dueDate, project, description);
         int expResult = 1;
-        int result = instance.getSize();
+        int result = taskList.getSize();
         assertEquals(expResult, result);
     }
     /**
      * Test of sortListByDate method, of class TaskList.
      */
-//    @Test
+//  
+    /**
+     * Test of accountDoneTasks method, of class TaskList.
+     */
+    @Test
+    public void testAccountDoneTasks() {
+        System.out.println("accountDoneTasks");
+        int expResult = 0;
+        int result = taskList.accountDoneTasks();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testAccountDoneTasksContainsOneTask() throws ParseException {
+        System.out.println("accountDoneTasks");
+        taskList.add(title, dueDate, project, description);
+        int expResult = 0;
+        int result = taskList.accountDoneTasks();
+        
+        assertEquals(expResult, result);
+    }
+     @Test
+    public void testAccountDoneTasksContainsDoneOneTask() throws ParseException {
+        System.out.println("accountDoneTasks");
+        taskList.add(title, dueDate, project, description);
+        taskList.setAsDoneTask(0);
+        int expResult = 1;
+        int result = taskList.accountDoneTasks();
+        assertEquals(expResult, result);
+    }
+
+ //@Test
 //    public void testSortListByDate() {
 //        System.out.println("sortListByDate");
 //        TaskList instance = new TaskList();
@@ -140,41 +171,11 @@ public class TaskListTest {
 //    @Test
 //    public void testGetArrayList() throws ParseException  {
 //        System.out.println("getArrayList");
-//        instance.add(title, dueDate, project, description);
+//        taskList.add(title, dueDate, project, description);
 //        ArrayList<Task> expResult = new ArrayList<>();
 //        expResult.add(new Task( title, dueDate, project, description));
-//        ArrayList<Task> result = instance.getArrayList();
-//        assertArrayEquals(expResult.toArray(), result.toArray());
+//        ArrayList<Task> result = taskList.getArrayList();
+//        System.out.println(result.size());
+//        assertEquals(expResult, taskList.getArrayList());
 //    }
-
-    /**
-     * Test of accountDoneTasks method, of class TaskList.
-     */
-    @Test
-    public void testAccountDoneTasks() {
-        System.out.println("accountDoneTasks");
-        int expResult = 0;
-        int result = instance.accountDoneTasks();
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testAccountDoneTasksContainsOneTask() throws ParseException {
-        System.out.println("accountDoneTasks");
-        instance.add(title, dueDate, project, description);
-        int expResult = 0;
-        int result = instance.accountDoneTasks();
-        
-        assertEquals(expResult, result);
-    }
-     @Test
-    public void testAccountDoneTasksContainsDoneOneTask() throws ParseException {
-        System.out.println("accountDoneTasks");
-        instance.add(title, dueDate, project, description);
-        instance.setAsDoneTask(0);
-        int expResult = 1;
-        int result = instance.accountDoneTasks();
-        
-        assertEquals(expResult, result);
-    }
 }
