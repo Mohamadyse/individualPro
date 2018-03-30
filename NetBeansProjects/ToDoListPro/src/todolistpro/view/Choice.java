@@ -5,14 +5,14 @@
  */
 package todolistpro.view;
 
-import java.util.HashMap;
-
 /**
  *
  * @author mohamad
  */
 public enum Choice {
-  SHOW(1," Show Task List."),ADD(2, " Add New Task."),EDIT(3," Edit Task."),SAQ(4," Save and quit."),SORT(5 ," Sort the list by date. " ),MARK(6 , " Mark a task as done " ),REMOVE( 7," Remove a task. "  ),BACK(8 ," Go back -> "  );
+  SHOW(1," Show Task List."),ADD(2, " Add New Task."),EDIT(3," Edit Task."),SORT(4 ," Sort the list by date. " ),SAQ(5," Save and quit."),
+  TITLE(6," Change title"), PROJECT(7," Change project name"), DATE(8," Change todue date"),DESCRIPTION(9," Change description"),    
+  MARK(10 , " Mark a task as done " ),REMOVE( 11," Remove a task. "  ),BACK(12 ," Go back -> "  );
      private String s;
      private int i;
   
@@ -38,7 +38,7 @@ public enum Choice {
 //}
 
 public String toString() {
-        return  " <<"+i+">>"+s;
+        return  "<<"+i+">> "+s;
     }
 
 }

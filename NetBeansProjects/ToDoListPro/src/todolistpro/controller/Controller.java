@@ -9,7 +9,8 @@ package todolistpro.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import todolistpro.integration.Handler;
+import todolistpro.integration.DBHandler;
+import todolistpro.model.Task;
 import todolistpro.model.TaskList;
 
 /**
@@ -18,13 +19,13 @@ import todolistpro.model.TaskList;
  */
 public  class Controller {
 
-    private static  Handler db;
+    private static  DBHandler< Task> db;
     private TaskList taskList;
 
 
 
     public Controller() throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
-        Controller.db = new Handler();
+        Controller.db = new DBHandler();
         this.taskList = new TaskList(db.readFromFile());
     }
 
@@ -43,7 +44,6 @@ public  class Controller {
         taskList.setAsDoneTask(index);
     }
    
-    
     public void remove(int index) {
         taskList.removeTask(index);
     }
@@ -55,7 +55,22 @@ public  class Controller {
         return taskList.accountDoneTasks();
     }
 
-
+    public void setTitle(int index,String replacement){
+          taskList.setTitle(index,replacement);
+    }
+    
+    public void setProject(int index, String replacement) {
+        taskList.setProject(index, replacement);
+    }
+    
+     public void setDate(int index,String replacement) throws ParseException{
+            taskList.setDate(index,replacement);
+     }
+    
+    public void  setDescription(int index,String replacement){
+        taskList.setDescription(index,replacement);
+    }
+    
     public int getListSize() {
         return taskList.getSize();
     }

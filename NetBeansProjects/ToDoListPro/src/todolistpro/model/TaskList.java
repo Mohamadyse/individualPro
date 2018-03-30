@@ -36,9 +36,23 @@ public  class TaskList   {
         taskList.remove(index);
     }
     
-    public void setAsDoneTask(int index) {
+    public void setProject(int index,String replacement) {
+        taskList.get(index).setProject(replacement);
+    }
+     public void setAsDoneTask(int index) {
         taskList.get(index).setAsDone();
     }
+     
+    public void setDate(int  index,String replacement) throws ParseException{
+         taskList.get(index).setDueDate(replacement);
+    }
+      public void setTitle(int index,String replacement) {
+        taskList.get(index).setTitle(replacement);
+    }
+       public void setDescription(int index,String replacement) {
+        taskList.get(index).setDescription(replacement);
+    }
+       
     
     public String showTask(int index){
             return taskList.get(index).toString();

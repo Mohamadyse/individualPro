@@ -5,6 +5,7 @@
  */
 package todolistpro.model;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,44 +15,44 @@ import java.util.Date;
  *
  * @author mohamad
  */
-public class Task<T> implements Comparable<Task>{
+public class Task implements Comparable<Task>, Serializable{
 
-    private T title;
+    private String title;
     private Date dueDate;
-    private T project;
+    private String project;
     private boolean isDone;
-    private T description;
+    private String description;
     
-    public Task(T title, Date dueDate, T project, T description) throws ParseException {// add the description as param
-        this.title = title;
-        this.isDone = false;
-        this.dueDate = dueDate;
-        this.project = project;
-        this.description = description;
-    }
+//    public Task(T title, Date dueDate, T project, T description) throws ParseException {// add the description as param
+//        this.title = title;
+//        this.isDone = false;
+//        this.dueDate = dueDate;
+//        this.project = project;
+//        this.description = description;
+//    }
     
     public Task(String title, String dueDate, String project, String description) throws ParseException {// add the description as param
-        this.title = (T) title;
+        this.title = title;
         this.isDone = false;
         setDueDate(dueDate);
-        this.project = (T) project;
-        this.description = (T) description;
+        this.project =   project;
+        this.description =  description;
 
     }
 
-    public void setDescription(T description) { //we can put the new desc as param
+    public void setDescription(String description) { //we can put the new desc as param
         this.description = description;
     }
 
-    public void setTitle(T title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    private void setDueDate(String dueDate) throws ParseException {
+    public void setDueDate(String dueDate) throws ParseException {
         this.dueDate = new SimpleDateFormat("dd.MM.yyyy").parse(dueDate);
     }
 
-    public void setProject(T project) {
+    public void setProject(String project) {
         this.project = project;
     }
     
@@ -63,7 +64,7 @@ public class Task<T> implements Comparable<Task>{
         this.isDone = true;
     }
 
-    public T getTitle() {
+    public String getTitle() {
         return title;
     }
     
@@ -72,7 +73,7 @@ public class Task<T> implements Comparable<Task>{
 
     }
 
-    public T getProject() {
+    public String getProject() {
         return project;
     }
 
@@ -81,25 +82,21 @@ public class Task<T> implements Comparable<Task>{
     }
     
     @Override
-    public int compareTo(Task task) {
+       public int compareTo(Task task){
         int comparsion;
         comparsion = this.dueDate.compareTo(task.dueDate);
         if (comparsion != 0) {
             return comparsion;
         }
-        String castedProject=(String)project;
-        String castedGottenProject  =(String)task.getProject();
-        comparsion = castedProject.compareTo(castedGottenProject);
+        comparsion = this.project.compareTo(task.getProject());
         if (comparsion != 0) {
             return comparsion;
         }
-         String castedTitle=(String)title;
-        String castedGottenTitle  =(String)task.getTitle(); 
-        
-        comparsion = castedTitle.compareTo(castedGottenTitle);
+        comparsion = this.title.compareTo(task.getTitle());
         return comparsion;
-
-    }
+       }
+       
+       
     @Override
     public String toString() {//printf for better output
         String status;

@@ -26,21 +26,17 @@ public class View {
            proccesser= new Controller();
            choices = new HashMap<>();
            reader = new Scanner(System.in);
-        
-        
-            for (Choice c : Choice.values()) {
+           for (Choice c : Choice.values()) {
                 choices.put(c.getChoiceOrder(), c);
             }
-    
     welcome();
     invokeChoice();
-    
     }
     
     private void invokeChoice() throws IOException, ParseException {
         Choice aChoice;
         do {
-            printAlternatives(1, 4);
+            printAlternatives(1, 5);
             aChoice = getChoice();
             match1(aChoice);
         } while (aChoice != Choice.SAQ);
@@ -55,8 +51,12 @@ public class View {
             case SHOW:
                  showList();
                 break;
+            case SORT:
+               proccesser.sort();
+               showList();
+               break;
             case EDIT:
-                match2();
+                editeMenu();
                 break;
             case SAQ:
                 proccesser.save();
@@ -65,12 +65,21 @@ public class View {
 
     }
 
-    private void match2() throws IOException, ParseException {
-        printAlternatives(5, 8);
+    private void editeMenu() throws IOException, ParseException {
+        printAlternatives(6, 12);
         Choice aChoice = getChoice();
         switch (aChoice) {
-            case SORT:
-               proccesser.sort();
+            case TITLE:
+                setTitle();
+                break;
+            case PROJECT:
+                setProject();
+                break;
+            case DATE:
+                setDate();
+                break;
+            case DESCRIPTION:
+                setDescription();
                 break;
             case MARK:
                 setAsDone();
@@ -81,7 +90,6 @@ public class View {
             case BACK:
                 invokeChoice();
                 break;
-
         }
     }
 
@@ -89,6 +97,30 @@ public class View {
         int i = getIndex();
         proccesser.setAsDoneTask(i);
         System.out.println("the task "+  i + " is done now");
+    }
+    
+    private void setTitle() {
+        int i = getIndex();
+        String replacement= getReplacement("title");
+        proccesser.setTitle(i,replacement);
+    }
+
+    private void setDate() throws ParseException {
+        int i = getIndex();
+        String replacement = dateMatching();
+        proccesser.setDate(i, replacement);
+    }
+
+    private void setProject() {
+        int i = getIndex();
+        String replacement = getReplacement("project");
+        proccesser.setProject(i, replacement);
+    }
+
+    private void setDescription() {
+        int i = getIndex();
+         String replacement= getReplacement("description");
+        proccesser.setDescription(i,replacement);
     }
 
     private void removeTask() {
@@ -100,24 +132,34 @@ public class View {
         System.out.println("write the number of the task");
         int in = 0;
         do {
-            String input = reader.nextLine();
+            String input = read();
             if (isValidNumber(input)) {
                 in = Integer.parseInt(input);
                 if ((in <= 0) || (in > size())) {
                     System.out.println("no task with such a number");
                 }
             }
-
         } while ((in <= 0) || (in > size()));
-
         return in - 1;
+    }
+  
+    private String read(){
+        String input=null;
+    while ((input == null) || (input.trim().isEmpty())) {
+             input = reader.nextLine();
+        }
+    return input;
+    }
+    
+    private String getReplacement(String word) {
+        System.out.println("Write the " + word + "you want to replace");
+        return reader.nextLine();
     }
        
     private void addTask() throws ParseException {
      //   reader.nextLine();
         System.out.println("Write the title of the task");
         String  title = reader.nextLine();//question3 doesnt read title
-        System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");
         String dueDate = dateMatching();
         System.out.println("Write the project of the task");
         String project = reader.nextLine();
@@ -128,9 +170,10 @@ public class View {
     }
 
     private String dateMatching() {
+        System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");
         String pattern = "\\d{2}.\\d{2}.\\d{4}";
         do {
-            String dueDate = reader.nextLine();
+            String dueDate = read();
             if (dueDate.matches(pattern)) {
                 return dueDate;
             } else {
@@ -148,14 +191,14 @@ public class View {
     private Choice getChoice() {
         int in = 0;
         do {
-            String input = reader.nextLine();
+            String input = read();
             if (isValidNumber(input)) {
                 in = Integer.parseInt(input);
                 if (!choices.containsKey(in)) {
-                    System.out.println("not vaild number, try again.");
+                    System.out.println("not valid number, try again.");
                 }
             } else {
-                System.out.println("not vaild choice, try again.");
+                System.out.println("not valid choice, try again.");
             }
 
         } while (!choices.containsKey(in));
@@ -180,11 +223,14 @@ public class View {
         return proccesser.getListSize();
     }
     
-    private void showList(){ 
-    if ((size()==0)) System.out.println(" The list is still empty ");
-     for (int i=0; i< size();i++)
-         System.out.println(i+1+".  "+ proccesser.showTask(i));
-         System.out.println("********************************");
+    private void showList() {
+        if ((size() == 0)) {
+            System.out.println(" The list is still empty ");
+        }
+        for (int i = 0; i < size(); i++) {
+            System.out.println(i + 1 + ".  " + proccesser.showTask(i));
+        }
+        System.out.println("********************************");
     }
 
 }
