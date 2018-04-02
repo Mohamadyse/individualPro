@@ -20,23 +20,31 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 
 /**
- *
+ *This class deals with the database which is in our case is just one file 
  * @author mohamad
  */
 public class DBHandler<T > {
 
-    public static String fileName = "toDoList.bin"; 
-//    private TaskList taskList;
     private File theFile;
     private T task;
-    
+    /**
+     * initialises the instance File and create a file 
+     * @throws IOException 
+     */
     public DBHandler() throws IOException   {
-       theFile= new File(fileName);
+       theFile= new File("toDoList.bin");
         if (!theFile.exists()) {
            theFile.createNewFile();
       }
     }
-      
+      /**
+       * reads an instance from the file 
+       * @return an array list of objects (generic type)
+       * @throws FileNotFoundException
+       * @throws ParseException
+       * @throws IOException
+       * @throws ClassNotFoundException 
+       */
     public ArrayList<T> readFromFile() throws FileNotFoundException, ParseException, IOException, ClassNotFoundException {
         if (theFile.length() == 0) {
             return new ArrayList<>();
@@ -52,7 +60,10 @@ public class DBHandler<T > {
             return created;
         }
     }
-
+/**
+ * to save an arraylist of objects in the file.
+ * @param taskListToSave  is the passed arraylist.
+ */
     public void save(ArrayList<T> taskListToSave) {
         FileOutputStream fout;
         try {
@@ -67,6 +78,7 @@ public class DBHandler<T > {
              JOptionPane.showMessageDialog(null,"the file hasn't been saved"+e.getMessage());
         }
     }
+}
           
 //    public ArrayList<Task> readFromFile() throws FileNotFoundException, ParseException, IOException    {
 //      if (theFile.length() == 0)
@@ -146,7 +158,7 @@ public class DBHandler<T > {
 //        }
 //    }
     
-}
+
         
         
     

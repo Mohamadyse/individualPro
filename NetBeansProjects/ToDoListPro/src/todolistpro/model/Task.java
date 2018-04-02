@@ -12,7 +12,9 @@ import java.util.Date;
 
  
 /**
- *
+ *This class represents the task, it holds the data about task.
+ * all methods in this class are getters and sitters besides overritten toString and compareTo. 
+ * we skip document the getters and sitters.
  * @author mohamad
  */
 public class Task implements Comparable<Task>, Serializable{
@@ -38,6 +40,10 @@ public class Task implements Comparable<Task>, Serializable{
         this.description = description;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
@@ -46,31 +52,58 @@ public class Task implements Comparable<Task>, Serializable{
         this.dueDate = new SimpleDateFormat("dd.MM.yyyy").parse(dueDate);
     }
 
+    /**
+     *
+     * @param project
+     */
     public void setProject(String project) {
         this.project = project;
     }
     
+    /**
+     *
+     * @param isDone
+     */
     public void setIsDone(boolean isDone){
         this.isDone=isDone;
     }
  
+    /**
+     *
+     */
     public void setAsDone() {
         this.isDone = true;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
-    
+  
+    /**
+     *
+     * @return
+     */
     public String getDueDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(dueDate);
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProject() {
         return project;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDone() {
         return isDone;
     }

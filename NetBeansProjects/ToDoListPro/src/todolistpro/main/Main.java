@@ -14,41 +14,19 @@ import todolistpro.view.View;
 
 
 /**
- *
+ *This main class creates an instance of the View class. 
  * @author mohamad
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     
     public Main(){
          }
    
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException  {
-    
-        
-//     
-//     Dbhandler db = new Dbhandler();
-//    TaskList taskList= db.readFromFile(); 
         View screen =new View();
-        
-        
-//        
-//        System.out.println(*s);
-//        
-//        
-//        
-//
-//        newList = db.readFromFile();
-//          
         }
-
-
-                
-       
-      
     }
     
 
