@@ -38,7 +38,7 @@ public enum Choice {
 //}
 
 public String toString() {
-        return  "<<"+i+">> "+s;
+        return  s;
     }
 
 }

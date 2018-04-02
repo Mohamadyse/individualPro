@@ -18,7 +18,7 @@ import java.util.Collections;
  */
 public  class TaskList   {
 
-    private static ArrayList<Task> taskList;
+    private  ArrayList<Task> taskList;
 
     public TaskList() {
         taskList = new ArrayList<>();

@@ -37,13 +37,14 @@ public class View {
         Choice aChoice;
         do {
             printAlternatives(1, 5);
-            aChoice = getChoice();
-            match1(aChoice);
-        } while (aChoice != Choice.SAQ);
+            aChoice = getChoice(1,5);
+            homeMenu(aChoice);
+        }
+        while (aChoice != Choice.SAQ);
         System.out.println("bye bye...");
     }
 
-    private void match1(Choice aChoice) throws IOException, ParseException {
+    private void homeMenu(Choice aChoice) throws IOException, ParseException {
         switch (aChoice) {
             case ADD:
                 addTask();
@@ -67,7 +68,7 @@ public class View {
 
     private void editeMenu() throws IOException, ParseException {
         printAlternatives(6, 12);
-        Choice aChoice = getChoice();
+        Choice aChoice = getChoice(6,12);
         switch (aChoice) {
             case TITLE:
                 setTitle();
@@ -132,27 +133,28 @@ public class View {
         System.out.println("write the number of the task");
         int in = 0;
         do {
-            String input = read();
+            String input = tokenizer();
             if (isValidNumber(input)) {
                 in = Integer.parseInt(input);
                 if ((in <= 0) || (in > size())) {
                     System.out.println("no task with such a number");
-                }
-            }
+                }} else System.out.println("unvalid input");
+            
         } while ((in <= 0) || (in > size()));
         return in - 1;
     }
   
-    private String read(){
+    private String tokenizer(){
         String input=null;
     while ((input == null) || (input.trim().isEmpty())) {
              input = reader.nextLine();
         }
+  
     return input;
     }
     
     private String getReplacement(String word) {
-        System.out.println("Write the " + word + "you want to replace");
+        System.out.println("Write the new " + word + " you want instead");
         return reader.nextLine();
     }
        
@@ -173,7 +175,7 @@ public class View {
         System.out.println("Write the  due date of the task in form \"dd.MM.yyyy\" ");
         String pattern = "\\d{2}.\\d{2}.\\d{4}";
         do {
-            String dueDate = read();
+            String dueDate = tokenizer();
             if (dueDate.matches(pattern)) {
                 return dueDate;
             } else {
@@ -184,25 +186,29 @@ public class View {
 
     private void printAlternatives(int min, int max) {
         for (int i = min; i <= max; i++) {
-            System.out.println(choices.get(i));
+            int optionNo=i-min+1;
+            System.out.println("<"+optionNo+"> "+choices.get(i).toString());
         }
     }
 
-    private Choice getChoice() {
-        int in = 0;
+    private Choice getChoice(int min, int max) {
+        int optionNo = 0;
+       
         do {
-            String input = read();
+            
+            
+            String input = tokenizer();
             if (isValidNumber(input)) {
-                in = Integer.parseInt(input);
-                if (!choices.containsKey(in)) {
-                    System.out.println("not valid number, try again.");
-                }
+                optionNo = Integer.parseInt(input);
             } else {
                 System.out.println("not valid choice, try again.");
             }
-
-        } while (!choices.containsKey(in));
-        return choices.get(in);
+//                if (((!choices.containsKey(optionNo+min-1))||(optionNo>max))||(optionNo<min))  {
+            if (!choices.containsKey(optionNo + min - 1)) {
+                System.out.println("not valid number, try again.");
+            }
+        } while (!choices.containsKey(optionNo + min - 1));
+        return choices.get(optionNo + min - 1);
     }
     
     private boolean isValidNumber(String value) {

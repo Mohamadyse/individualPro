@@ -23,13 +23,7 @@ public class Task implements Comparable<Task>, Serializable{
     private boolean isDone;
     private String description;
     
-//    public Task(T title, Date dueDate, T project, T description) throws ParseException {// add the description as param
-//        this.title = title;
-//        this.isDone = false;
-//        this.dueDate = dueDate;
-//        this.project = project;
-//        this.description = description;
-//    }
+
     
     public Task(String title, String dueDate, String project, String description) throws ParseException {// add the description as param
         this.title = title;
