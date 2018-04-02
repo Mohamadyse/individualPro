@@ -69,7 +69,7 @@ public class View {
                 filter();
                 break;
             case EDIT:
-                editeMenu();
+                editMenu();
                 break;
             case SAQ:
                 proccesser.save();
@@ -78,7 +78,7 @@ public class View {
 
     }
 
-    private void editeMenu() throws IOException, ParseException {
+    private void editMenu() throws IOException, ParseException {
         printAlternatives(7, 13);
         Choice aChoice = getChoice(7, 13);
         switch (aChoice) {
@@ -244,6 +244,7 @@ public class View {
         proccesser.filterByProject(project).forEach(System.out::println);
 
     }
+    
     private void showList() {
         if ((size() == 0)) {
             System.out.println(" The list is still empty ");

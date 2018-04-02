@@ -33,7 +33,8 @@ public enum Choice {
  * 
  * @return  The command as a string.
  */
-    public String toString() {
+    @Override
+     public String toString() {
         return s;
     }
 
